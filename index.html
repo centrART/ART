@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Центр современных психотехнологий «АРТ» | Обучение гипнозу и НЛП</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103956412', 'ym');
+
+        ym(103956412, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/103956412" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    
     <style>
         * {
             margin: 0;
@@ -260,7 +275,7 @@
 
         .program-card p {
             margin-bottom: 15px;
-            color: #666;
+            color: 666;
             line-height: 1.6;
             font-size: 16px;
         }
@@ -738,6 +753,11 @@
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Отправка цели в Яндекс.Метрику
+            if (typeof ym !== 'undefined') {
+                ym(103956412, 'reachGoal', 'form_submit');
+            }
+            
             // Собираем данные формы
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
@@ -745,7 +765,7 @@
             // Создаем текст письма
             const subject = `Новая заявка с сайта: ${data.name}`;
             const body = `
-НОВАЯ ЗАЯВКА С САЙТА ЦЕНТР АРТ
+НОВАЯ ЗАЯВКА С САЙТА ЦЕНТр АРТ
 
 👤 Имя: ${data.name}
 📞 Телефон: ${data.phone}
@@ -792,6 +812,15 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                }
+            });
+        });
+
+        // Отслеживание кликов по кнопкам в Яндекс.Метрике
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if (typeof ym !== 'undefined') {
+                    ym(103956412, 'reachGoal', 'button_click');
                 }
             });
         });
