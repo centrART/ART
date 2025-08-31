@@ -40,7 +40,60 @@
         html {
             scroll-behavior: smooth;
         }
+<!-- Модальное окно -->
+<div id="trainingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; font-family: 'Segoe UI', sans-serif;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:40px; border-radius:15px; text-align:center; max-width:500px; width:90%; box-shadow:0 20px 40px rgba(0,0,0,0.3);">
+        <h2 style="color:#2c3e50; margin-bottom:20px; font-size:28px;">🚀 Экспресс-интенсив</h2>
+        <p style="font-size:18px; color:#666; margin-bottom:10px;"><strong>Всего за 4 дня вы получите инструмент, который изменит вашу жизнь!</strong></p>
+        <p style="font-size:16px; color:#e74c3c; margin-bottom:25px;">📅 Старт 4 сентября | 🕒 10:00-18:00</p>
+        
+        <form id="modalForm" style="display:flex; flex-direction:column; gap:15px;">
+            <input type="text" name="name" placeholder="Ваше имя" required style="padding:15px; border:2px solid #e9ecef; border-radius:8px; font-size:16px;">
+            <input type="tel" name="phone" placeholder="+7 (999) 999-99-99" required style="padding:15px; border:2px solid #e9ecef; border-radius:8px; font-size:16px;">
+            <button type="submit" style="background:#e74c3c; color:white; padding:15px; border:none; border-radius:8px; font-size:18px; font-weight:bold; cursor:pointer; transition:background 0.3s;">Забронировать место</button>
+        </form>
+        
+        <button onclick="closeTrainingModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:28px; cursor:pointer; color:#999;">×</button>
+    </div>
+</div>
 
+<script>
+// Показ окна через 8 секунд (без ограничений)
+setTimeout(function() {
+    document.getElementById('trainingModal').style.display = 'block';
+}, 8000);
+
+function closeTrainingModal() {
+    document.getElementById('trainingModal').style.display = 'none';
+}
+
+// Закрытие при клике вне окна
+document.getElementById('trainingModal').addEventListener('click', function(e) {
+    if (e.target.id === 'trainingModal') closeTrainingModal();
+});
+
+// Обработка формы
+document.getElementById('modalForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    
+    const subject = 'Заявка с попапа: ' + data.name;
+    const body = `Имя: ${data.name}\nТелефон: ${data.phone}\nТренинг: Экспресс-интенсив (4 сентября)`;
+    
+    window.location.href = `mailto:skliadnev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    closeTrainingModal();
+    alert('Спасибо! Откроется почтовый клиент для отправки заявки.');
+});
+
+// Дополнительно: показ при попытке уйти с сайта
+document.addEventListener('mouseout', function(e) {
+    if (e.clientY < 5) {
+        document.getElementById('trainingModal').style.display = 'block';
+    }
+});
+</script>
+        
         body {
             color: var(--text);
             background-color: var(--light);
